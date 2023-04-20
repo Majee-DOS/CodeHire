@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const jobDescription = require('./descriptionPage');
 const homePage = 'https://www.reed.co.uk/';
 
-(async () => {
+const main = async () => {
 
     const browser = await puppeteer.launch({
         headless: false,
@@ -88,7 +88,12 @@ const homePage = 'https://www.reed.co.uk/';
     //TODO iterate through and store in an object with refID
     //console.log(scrapeDescription(homePage + jobUrlLinks[0]));
 
-})()
+
+    return jobs;
+}
+
+
+// main();
 
 async function scrapeDataText(page, selector) {
     try {
@@ -121,3 +126,5 @@ async function referenceGenerator(url) {
 
     return Number(refID);
 }
+
+module.exports = main;
