@@ -1,4 +1,6 @@
 const puppeteer = require('puppeteer');
+const jobDescription = require('./descriptionPage');
+const homePage = 'https://www.reed.co.uk/';
 
 (async () => {
 
@@ -12,7 +14,7 @@ const puppeteer = require('puppeteer');
 
     const page = await browser.newPage();
 
-    await page.goto('https://www.reed.co.uk/');
+    await page.goto(homePage);
 
     try {
         await page.waitForSelector('#onetrust-accept-btn-handler');
@@ -59,6 +61,7 @@ const puppeteer = require('puppeteer');
     const jobTypes = await scrapeDataText(page, '.job-metadata__item--type');
     const jobTitles = await scrapeDataText(page, 'h2.job-result-heading__title > a');
     const jobDatePosted = await scrapeDataText(page, '.job-result-heading__posted-by');
+    //remove " by" and everything after with regex
     const modifiedListings = jobDatePosted.map(job => job.replace(/ by.+/, ''));
 
     const jobs = [];
@@ -72,23 +75,32 @@ const puppeteer = require('puppeteer');
             datePosted: modifiedListings[i],
             urlLink: jobUrlLinks[i]
         };
-
         jobs.push(job);
     }
     console.log(jobs);
+    console.log(scrapeDescription(homePage + jobUrlLinks[0]));
 
-    async function scrapeDataText(page, selector) {
-        try {
-            await page.waitForSelector(selector);
-            const data = await page.$$eval(selector, elements => {
-                return elements.map(element => element.innerText);
-            });
-            //console.log(data);
-            //console.log(`length of ${selector}: ${data.length}`);
-            return data;
-        } catch (err) {
-            //console.log(err);
-            return [];
-        }
-    }
 })()
+
+async function scrapeDataText(page, selector) {
+    try {
+        await page.waitForSelector(selector);
+        const data = await page.$$eval(selector, elements => {
+            return elements.map(element => element.innerText);
+        });
+        //console.log(data);
+        //console.log(`length of ${selector}: ${data.length}`);
+        return data;
+    } catch (err) {
+        //console.log(err);
+        return [];
+    }
+}
+
+async function scrapeDescription(url) {
+    try {
+        const d = await jobDescription(url);
+    } catch (err) {
+        console.log(err);
+    }
+}
