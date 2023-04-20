@@ -54,6 +54,8 @@ const homePage = 'https://www.reed.co.uk/';
         console.log(err);
     }
 
+
+
     //const jobLinks = await scrapeData(page, 'h2.job-result-heading__title > a', 'href');
     const jobCompanies = await scrapeDataText(page, '.gtmJobListingPostedBy');
     const jobSalaries = await scrapeDataText(page, '.job-metadata__item--salary');
@@ -63,6 +65,8 @@ const homePage = 'https://www.reed.co.uk/';
     const jobDatePosted = await scrapeDataText(page, '.job-result-heading__posted-by');
     //remove " by" and everything after with regex
     const modifiedListings = jobDatePosted.map(job => job.replace(/ by.+/, ''));
+    //create referenceIDs to link jobs with jobDescriptions
+    const referenceID = await Promise.all(jobUrlLinks.map(refLink => referenceGenerator(refLink)));
 
     const jobs = [];
     for (let i = 0; i < jobCompanies.length; i++) {
@@ -73,12 +77,16 @@ const homePage = 'https://www.reed.co.uk/';
             location: jobLocations[i],
             type: jobTypes[i],
             datePosted: modifiedListings[i],
-            urlLink: jobUrlLinks[i]
+            urlLink: jobUrlLinks[i],
+            refID: referenceID[i]
         };
         jobs.push(job);
     }
     console.log(jobs);
-    console.log(scrapeDescription(homePage + jobUrlLinks[0]));
+
+    //Scraper for the job description page
+    //TODO iterate through and store in an object with refID
+    //console.log(scrapeDescription(homePage + jobUrlLinks[0]));
 
 })()
 
@@ -100,7 +108,16 @@ async function scrapeDataText(page, selector) {
 async function scrapeDescription(url) {
     try {
         const d = await jobDescription(url);
+        console.log(d);
     } catch (err) {
         console.log(err);
     }
+}
+
+async function referenceGenerator(url) {
+    const refRegex = /\/(\d+)\?/;  // regular expression pattern to match the number
+    const match = url.match(refRegex);  // apply the pattern to the url string
+    const refID = match[1];  // extract the captured group from the match
+
+    return Number(refID);
 }
