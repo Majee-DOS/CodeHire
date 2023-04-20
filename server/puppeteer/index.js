@@ -28,7 +28,7 @@ const puppeteer = require('puppeteer');
 
     try {
         await page.waitForSelector('.btn.btn-link.btn-job-result-more');
-        const rows = await page.$$('.btn.btn-link.btn-job-result-more');
+        //const rows = await page.$$('.btn.btn-link.btn-job-result-more');
 
         await page.evaluate(() => {
             let elements = $('.btn.btn-link.btn-job-result-more').toArray();
@@ -40,5 +40,20 @@ const puppeteer = require('puppeteer');
     } catch (err) {
         console.log(err);
     }
+
+    try {
+        await page.waitForSelector('.gtmJobListingPostedBy');
+        //const companies = await page.$$('.gtmJobListingPostedBy');
+
+        await page.evaluate(() => {
+            let companies = $('.gtmJobListingPostedBy').toArray();
+            for (i = 0; i < companies.length; i++) {
+                let company = $(companies[i]);
+                console.log(company.innerText);
+            }
+        })
+    } catch (err) {
+        console.log(err);
+    }   
 
 })()
