@@ -12,17 +12,35 @@ exports.postEvent = async () => {
 
     //console.log(jobs,'jobs');
 
-    let inputData = jobs[0];
-    //console.log('\n', '\n', '\n');
-    const res = await Events.create({
-        title: inputData.title,
-        company: inputData.company,
-        salary: inputData.salary,
-        location: inputData.location,
-        type: inputData.type,
-        datePosted: inputData.datePosted,
-        urlLink: inputData.urlLink,
-        refID: inputData.refID
-    });
-    return res;
+
+    for (let i=0; i< jobs.length; i++) {
+        let inputData = jobs[i];
+        const res = await Events.create({
+            title: inputData.title,
+            company: inputData.company,
+            salary: inputData.salary,
+            location: inputData.location,
+            type: inputData.type,
+            datePosted: inputData.datePosted,
+            urlLink: inputData.urlLink,
+            refID: inputData.refID
+        });
+    }
+
+    // let inputData = jobs[0];
+    // //console.log('\n', '\n', '\n');
+    // const res = await Events.create({
+    //     title: inputData.title,
+    //     company: inputData.company,
+    //     salary: inputData.salary,
+    //     location: inputData.location,
+    //     type: inputData.type,
+    //     datePosted: inputData.datePosted,
+    //     urlLink: inputData.urlLink,
+    //     refID: inputData.refID
+    // });
+    // return res;
+
+
+    return 'str';
 };
