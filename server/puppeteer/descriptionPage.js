@@ -13,6 +13,9 @@ async function jobDescription(url) {
     const page = await browser.newPage();
     await page.goto(url);
 
+
+    //accepting GDPR request when opening browser page for the first time
+    //reused in nextPage.js, descriptionPage.js, make it more dry in the future
     try {
         await page.waitForSelector('#onetrust-accept-btn-handler');
         await page.click('#onetrust-accept-btn-handler');

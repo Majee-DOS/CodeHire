@@ -1,6 +1,8 @@
 const puppeteer = require('puppeteer');
 const jobDescription = require('./descriptionPage');
 const homePage = 'https://www.reed.co.uk/';
+const NextPage = require("./nextPage.js");
+
 
 const main = async () => {
 
@@ -16,6 +18,8 @@ const main = async () => {
 
     await page.goto(homePage);
 
+    //accepting GDPR request when opening browser page for the first time
+    //reused in nextPage.js, descriptionPage.js, make it more dry in the future
     try {
         await page.waitForSelector('#onetrust-accept-btn-handler');
         await page.click('#onetrust-accept-btn-handler');
@@ -23,8 +27,11 @@ const main = async () => {
         console.log(error);
     }
 
+
+    //'frontend'
+    //'Software Engineer'
     await page.waitForSelector('#main-keywords');
-    await page.type('#main-keywords', 'Software Engineer');
+    await page.type('#main-keywords', 'frontend');
     await page.click('#homepageSearchButton');
 
     //clicking all see more elements on page
@@ -89,6 +96,29 @@ const main = async () => {
     //console.log(scrapeDescription(homePage + jobUrlLinks[0]));
 
 
+
+
+
+    //get the string of the page counter
+    const pageCounter = await page.evaluate(() => {
+        const div = document.querySelector('.page-counter');
+        return div.textContent.trim();
+    });
+
+    let parts = pageCounter.split(' ');
+    let secondNum = parseInt(parts[2]);
+    let thirdNum = parseInt(parts[4].replace(',', '')); // Remove comma before converting to integer
+    let maxPageNumber = Math.floor(thirdNum / secondNum);
+
+    let startPageNumber = 2;
+    for (let i = 2; i < maxPageNumber; i++) {
+        let currentURL = await page.url();
+        const nextJobs = await NextPage(currentURL, i);
+        jobs.push(...nextJobs);
+    }
+
+
+    browser.close();
     return jobs;
 }
 
@@ -127,4 +157,28 @@ async function referenceGenerator(url) {
     return Number(refID);
 }
 
+function checkLastPage(pageCounter) {
+    // matches all numbers in the string
+    const nums = pageCounter.match(/\d+/g);
+
+    if (nums[1] < nums[2]) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 module.exports = main;
+
+    // //This doesn't work because it is read on main/first browser page which is always 1-25
+    // //initialize pageNumber to 2 to start scraping
+    // let pageNumber = 2;
+    // //will return true if not last page
+    // //and call the nextPage function
+    // while (checkLastPage(pageCounter)) {
+    //     //Scraper for the next page
+    //     let currentURL = await page.url();
+    //     const nextJobs = await NextPage(currentURL, pageNumber);
+    //     jobs.push(...nextJobs);
+    //     pageNumber++;
+    // }
