@@ -1,0 +1,36 @@
+.job-list {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .job-list-item {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .job-list-item h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 24px;
+  }
+  
+  .job-list-item p {
+    margin: 0;
+    font-size: 16px;
+  }
+  
+  .job-list-item a {
+    color: #0077cc;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .job-list-item a:hover {
+    text-decoration: underline;
+  }
+  

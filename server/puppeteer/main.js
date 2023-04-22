@@ -110,8 +110,8 @@ const main = async () => {
     let thirdNum = parseInt(parts[4].replace(',', '')); // Remove comma before converting to integer
     let maxPageNumber = Math.floor(thirdNum / secondNum);
 
-    let startPageNumber = 2;
-    for (let i = 2; i < maxPageNumber; i++) {
+    //Scraper to loop through the next page
+    for (let i = 2; i <= maxPageNumber; i++) {
         let currentURL = await page.url();
         const nextJobs = await NextPage(currentURL, i);
         jobs.push(...nextJobs);
