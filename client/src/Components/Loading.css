@@ -1,0 +1,40 @@
+.container {
+    margin-top: 50px;
+    margin-left: 400px;
+  }
+  
+.dot {
+    width: 25px;
+    height: 25px;
+    background: yellow;
+    position: relative;
+    animation: firstDot 3s infinite;
+  }
+
+.dot2 {
+    width: 25px;
+    height: 25px;
+    background: yellow;
+    position: relative;
+    animation: secondDot 3s infinite;
+    margin-left: 200px;
+    margin-bottom: 45px;
+    
+}
+  
+@keyframes firstDot {
+    0%   {background-color:yellow; left:0px; top:0px;}
+    25%  {background-color:red; left:200px; top:0px;}
+    50%  {background-color:blue; left:200px; top:200px;}
+    75%  {background-color:green; left:0px; top:200px;}
+    100% {background-color:yellow; left:0px; top:0px;}
+}
+
+@keyframes secondDot {
+    0%   {background-color:yellow; right:0px; top:0px;}
+    25%  {background-color:red; right:200px; top:0px;}
+    50%  {background-color:blue; right:200px; top:200px;}
+    75%  {background-color:green; right:0px; top:200px;}
+    100% {background-color:yellow; right:0px; top:0px;}
+}
+

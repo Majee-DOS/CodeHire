@@ -1,6 +1,6 @@
 import { Outlet, Link } from "react-router-dom";
 import './NavBar.css';
-
+//Don't forget to show results
 const NavBar = () => {
   return (
     <>
