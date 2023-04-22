@@ -13,11 +13,14 @@ import { getJobs } from './api.service';
 
 const App = () => {
   const [searchResults, setSearchResults] = useState([]);
+  const [counter, setCounter] = useState(0);
 
-  // const handleSearch = (data) => {
-  //   setSearchResults(data);
-  // };
+  const generateCounter = () => {
+    setCounter(counter + 25);
+  }
 
+//use this when next page is clicked in JobList
+//onClick={generateCounter}
   const refreshJobs = () => {
     getJobs().then(data => setSearchResults(data));
     // const jobs = searchResults;
@@ -28,12 +31,13 @@ const App = () => {
     refreshJobs();
   }, []);
 
+//fix job/path to work with handlebars
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<NavBar />}>
           <Route index element={<Home />} />
-          <Route path="jobs" element={<JobList jobs={searchResults}></JobList>} />
+          <Route path="jobs/:jobPageNum" element={<JobList jobs={searchResults.slice(counter,counter+25)}></JobList>} />
           <Route path="login" element={<Login />} />
           <Route path="*" element={<NoPage />} />
           <Route path="loading" element={<Loading />} />

@@ -3,8 +3,8 @@ const url = 'http://localhost:3000';
 
 const getJobs = async () => {
     const response = await fetch(url);
-    const events = await response.json();
-    return events;
+    const jobs = await response.json();
+    return jobs;
 }
 
 //change url to better name
@@ -17,8 +17,8 @@ const postJobs = async (jobDetails) => {
         //     "Content-Type": "application/json"
         // }
     });
-    const event = await response.json();
-    return event;
+    const jobs = await response.json();
+    return jobs;
 }
 
 module.exports = {
