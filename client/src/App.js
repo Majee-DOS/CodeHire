@@ -11,13 +11,24 @@ import NoPage from "./Components/NoPage";
 import Loading from "./Components/Loading";
 import { getJobs } from './api.service';
 
+import { useParams } from 'react-router-dom';
+
 const App = () => {
   const [searchResults, setSearchResults] = useState([]);
-  const [counter, setCounter] = useState(0);
+  const [jobsLength, setJobsLength] = useState(0);
+  const [counter, setCounter] = useState(1);
+  // const [pageNum, setPageNum] = useState(1);
 
-  const generateCounter = () => {
-    setCounter(counter + 25);
-  }
+  // const { jobPageNum } = useParams();
+  // setPageNum(parseInt(jobPageNum));
+
+  
+  // const { jobPageNum } = useParams();
+  // const jobNum = parseInt(jobPageNum);
+
+  // const generateCounter = () => {
+  //   setCounter(counter + 25);
+  // }
 
 //use this when next page is clicked in JobList
 //onClick={generateCounter}
@@ -27,8 +38,13 @@ const App = () => {
     // setSearchResults(jobs);
   }
 
+  const refreshJobsLength = () => {
+    setJobsLength(searchResults.length);
+  }
+
   useEffect(() => {
     refreshJobs();
+    refreshJobsLength();
   }, []);
 
 //fix job/path to work with handlebars
@@ -37,9 +53,10 @@ const App = () => {
       <Routes>
         <Route path="/" element={<NavBar />}>
           <Route index element={<Home />} />
-          <Route path="jobs/:jobPageNum" element={<JobList jobs={searchResults.slice(counter,counter+25)}></JobList>} />
+          <Route path="jobs/:jobPageNum" element={<JobList jobs={searchResults.slice(0,25)} setCounter={setCounter}></JobList>} />
           <Route path="login" element={<Login />} />
           <Route path="*" element={<NoPage />} />
+          <Route path="jobs/0" element={<NoPage />} />
           <Route path="loading" element={<Loading />} />
         </Route>
       </Routes>
