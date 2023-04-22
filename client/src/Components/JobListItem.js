@@ -9,7 +9,7 @@ const JobListItem = ({ job }) => {
       <p>{job.location}</p>
       <p>{job.type}</p>
       <p>{job.datePosted}</p>
-      <a href={job.urlLink}>Apply Now</a>
+      <a href={"https://www.reed.co.uk/" + job.urlLink}>Apply Now</a>
     </div>
   );
 };
