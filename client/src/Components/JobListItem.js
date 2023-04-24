@@ -5,10 +5,11 @@ const JobListItem = ({ job }) => {
     <div>
       <h3>{job.title}</h3>
       <p>{job.company}</p>
-      <p>{job.salary}</p>
-      <p>{job.location}</p>
-      <p>{job.type}</p>
-      <p>{job.datePosted}</p>
+      <p>Salary: {job.salary}</p>
+      <p>Location: {job.location}</p>
+      <p>Position: {job.type}</p>
+      <p>Posted: {job.datePosted}</p>
+      <p>Reference: {job.refID}</p>
       <a href={"https://www.reed.co.uk/" + job.urlLink}>Apply Now</a>
     </div>
   );
