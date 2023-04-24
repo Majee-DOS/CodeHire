@@ -1,14 +1,14 @@
 const database = require("../models/models.js");
 
-exports.getEvents = async (req, res) => {
-    const data = await database.getEvents();
+exports.getJobs = async (req, res) => {
+    const data = await database.getJobs();
     res.send(data);
 }
 
-exports.postEvents = async (req, res) => {
+exports.postJobs = async (req, res) => {
     // const input = JSON.parse(req.body);
     // const input = req.body;
-    await database.postEvent();
+    await database.postJobs();
     //res.send('input has been posted');
     res.status(201).send('input has been posted');
 }

@@ -1,12 +1,12 @@
 const Events = require("./mongooseDB");
 const Main = require("../puppeteer/main.js");
 
-exports.getEvents = async () => {
+exports.getJobs = async () => {
     const res = await Events.find({});
     return res;
 };
 
-exports.postEvent = async () => {
+exports.postJobs = async () => {
     // console.log(Jobs.main.toString());
     const jobs = await Main();
 
