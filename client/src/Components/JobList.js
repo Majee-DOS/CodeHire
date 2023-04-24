@@ -1,28 +1,34 @@
 //import React, { useEffect, useState } from 'react';
 import React from 'react';
 import JobListItem from './JobListItem';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { UserContext } from '../App';
 
-const JobList = ({ counter ,setCounter }) => {
+const JobList = () => {
     const jobs = React.useContext(UserContext);
+    //How many results to display per page
     const resultsPerPage = 5;
-  
+
     //This is the current page number after the /jobs/:jobPageNum route
     const { jobPageNum } = useParams();
 
     //store it as number before button click events overrides useParams
     let currentPageNum = parseInt(jobPageNum);
+    const navigate = useNavigate();
 
-    const nextPageLoader = () => {
-        if (currentPageNum < jobs.length / resultsPerPage){
-            setCounter(currentPageNum + 1);
+    const navigatePrevPage = () => {
+        if (currentPageNum > 1) {
+            return currentPageNum - 1;
+        } else {
+            return currentPageNum;
         }
     }
 
-    const previousPageLoader = () => {
-        if (currentPageNum > 1){
-            setCounter(currentPageNum - 1);
+    const navigateNextPage = () => {
+        if (currentPageNum < jobs.length / resultsPerPage) {
+            return currentPageNum + 1;
+        } else {
+            return currentPageNum;
         }
     }
 
@@ -30,13 +36,22 @@ const JobList = ({ counter ,setCounter }) => {
         <div>
             <h1>JobList</h1>
             <h1>Total Results {jobs.length}</h1>
-            <h1>Showing Results from {(jobPageNum - 1 ) * resultsPerPage} to {jobPageNum * resultsPerPage}</h1>
-            <button onClick={previousPageLoader}>Previous Page</button>
-            <a href={`/jobs/${counter}`}>
-                <button>cool {`${counter}`}</button>
+            <h1>Showing Results from {(jobPageNum - 1) * resultsPerPage} to {jobPageNum * resultsPerPage}</h1>
+
+            <a href={`/jobs/1`}>
+                <button>First Page</button>
             </a>
-            <button onClick={nextPageLoader}>Next Page</button>
-            {jobs.slice((jobPageNum - 1) * resultsPerPage,jobPageNum * resultsPerPage).map((job) => (
+            <button onClick={async () => {
+                navigate(`/jobs/${navigatePrevPage()}`);
+            }}>Previous Page</button>
+            <button onClick={() => {
+                navigate(`/jobs/${navigateNextPage()}`)
+            }}>Next Page</button>
+            <a href={`/jobs/${jobs.length / resultsPerPage}`}>
+                <button>Last Page</button>
+            </a>
+
+            {jobs.slice((jobPageNum - 1) * resultsPerPage, jobPageNum * resultsPerPage).map((job) => (
                 <JobListItem key={job.refID} job={job} />
             ))}
         </div>

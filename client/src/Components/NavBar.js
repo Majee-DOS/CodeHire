@@ -18,6 +18,9 @@ const NavBar = () => {
           <li>
             <Link to="/loading">Loading Screen</Link>
           </li>
+          <li>
+            <Link to="/search">Search</Link>
+          </li>
         </ul>
       </nav>
 
