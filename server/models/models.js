@@ -6,9 +6,10 @@ exports.getJobs = async () => {
     return res;
 };
 
-exports.postJobs = async () => {
+//The inputData is the SearchString
+exports.postJobs = async (inputData) => {
     // console.log(Jobs.main.toString());
-    const jobs = await Main();
+    const jobs = await Main(inputData.searchString);
 
     //console.log(jobs,'jobs');
 
@@ -44,3 +45,22 @@ exports.postJobs = async () => {
 
     return 'str';
 };
+
+exports.postJobs = async (inputData) => {
+    const jobs = await Main(inputData.searchString);
+    for (let i=0; i< jobs.length; i++) {
+        let inputData = jobs[i];
+        const res = await Events.create({
+            title: inputData.title,
+            company: inputData.company,
+            salary: inputData.salary,
+            location: inputData.location,
+            type: inputData.type,
+            datePosted: inputData.datePosted,
+            urlLink: inputData.urlLink,
+            refID: inputData.refID
+        });
+    }
+    return 'str';
+};
+

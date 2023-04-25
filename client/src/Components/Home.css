@@ -1,0 +1,5 @@
+@import url("./ColorScheme.css");
+
+h1 {
+    color: var(--palette3);
+}

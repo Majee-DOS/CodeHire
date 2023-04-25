@@ -4,7 +4,7 @@ const homePage = 'https://www.reed.co.uk/';
 const NextPage = require("./nextPage.js");
 
 
-const main = async () => {
+const main = async (searchString) => {
 
     const browser = await puppeteer.launch({
         headless: false,
@@ -30,8 +30,9 @@ const main = async () => {
 
     //'frontend'
     //'Software Engineer'
+    //let searchKeywords = "";
     await page.waitForSelector('#main-keywords');
-    await page.type('#main-keywords', 'frontend');
+    await page.type('#main-keywords', "" + searchString);
     await page.click('#homepageSearchButton');
 
     //clicking all see more elements on page
@@ -108,7 +109,8 @@ const main = async () => {
     let parts = pageCounter.split(' ');
     let secondNum = parseInt(parts[2]);
     let thirdNum = parseInt(parts[4].replace(',', '')); // Remove comma before converting to integer
-    let maxPageNumber = Math.floor(thirdNum / secondNum);
+    let maxPageNumber = Math.ceil(thirdNum / secondNum);
+    console.log(maxPageNumber);
 
     //Scraper to loop through the next page
     for (let i = 2; i <= maxPageNumber; i++) {
@@ -116,7 +118,12 @@ const main = async () => {
         const nextJobs = await NextPage(currentURL, i);
         jobs.push(...nextJobs);
     }
-
+    //bug where the last page is not being scraped
+    //quick fix for now to get the last page
+    //weird the bug isn't activating for now...
+    // let currentURL = await page.url();
+    // const nextJobs = await NextPage(currentURL, maxPageNumber);
+    // jobs.push(...nextJobs);
 
     browser.close();
     return jobs;

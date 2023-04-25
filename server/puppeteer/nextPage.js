@@ -9,11 +9,38 @@ const nextPage = async (urlLink, pageNumber) => {
         ]
     })
 
-
     //loop through this page if refactoring
     const page = await browser.newPage();
     const nextPageUrl = '?pageno=';
-    await page.goto(urlLink + nextPageUrl + pageNumber);
+
+    //First check whether this page is for QuickSearching or AdvancedSearching
+    //AdvancedSearching has the string keywords in it's url
+    function containsKeywords(str) {
+        return str.includes("keywords");
+    }
+
+    if (containsKeywords(urlLink)) {
+        //for AdvancedSearch
+        const newURL = addPageNumToUrl(urlLink, pageNumber);
+        await page.goto(newURL);
+    } else {
+        //for QuickSearch
+        await page.goto(urlLink + nextPageUrl + pageNumber);
+    }
+
+    function addPageNumToUrl(url, pageNum) {
+        const newURL = url.split('?');
+        return newURL[0] + "?pageno=" + pageNum + "&" + newURL[1];
+      }
+      
+    //   // Example usage:
+    //   const url = 'http://example.com/search?query=apple';
+    //   const pageNum = 3;
+    //   const newUrlWithPageNum = addPageNumToUrl(url, pageNum);
+    //   console.log(newUrlWithPageNum); // Output: http://example.com/search?pageno=3&query=apple
+      
+
+    
 
     //accepting GDPR request when opening browser page for the first time
     //reused in main.js, make it more dry in the future

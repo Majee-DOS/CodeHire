@@ -1,8 +1,21 @@
+.navBarBackground {
+  background-image: url('./public/polygon.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: var(--palette3);
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #333;
+    background-color: var(--palette3);
     padding: 10px 20px;
     position: fixed;
     top: 0;
@@ -14,6 +27,7 @@ nav {
   
   nav ul {
     display: flex;
+    align-items: center;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -33,6 +47,26 @@ nav {
   }
   
   nav ul li a:hover {
-    color: #ff9900;
+    color: var(--palette6);
+  }
+
+  nav form {
+    display: flex;
+    align-items: center;
+  }
+  
+  nav input[type="text"] {
+    padding: 5px;
+    border-radius: 5px 0 0 5px;
+    border: none;
+  }
+  
+  nav button[type="submit"] {
+    padding: 5px 10px;
+    background-color: var(--palette6);
+    color: #fff;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
   }
   

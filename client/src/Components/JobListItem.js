@@ -1,6 +1,10 @@
 import React from 'react';
 
 const JobListItem = ({ job }) => {
+  const handleClick = () => {
+    console.log("reference: " , job.refID);
+  }
+
   return (
     <div>
       <h3>{job.title}</h3>
@@ -11,6 +15,7 @@ const JobListItem = ({ job }) => {
       <p>Posted: {job.datePosted}</p>
       <p>Reference: {job.refID}</p>
       <a href={"https://www.reed.co.uk/" + job.urlLink}>Apply Now</a>
+      <button onClick={handleClick}>Favourite</button>
     </div>
   );
 };
