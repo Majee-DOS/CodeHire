@@ -3,9 +3,11 @@ import React from 'react';
 import JobListItem from './JobListItem';
 import { useParams, useNavigate } from 'react-router-dom';
 import { UserContext } from '../App';
+import './JobList.css';
 
 const JobList = () => {
     const jobs = React.useContext(UserContext);
+    console.log(jobs.length);
     //How many results to display per page
     const resultsPerPage = 5;
 
@@ -33,24 +35,23 @@ const JobList = () => {
     }
 
     return (
-        <div>
-            <h1>JobList</h1>
+        <div className='jobListDiv'>
             <h1>Total Results {jobs.length}</h1>
-            <h1>Showing Results from {(jobPageNum - 1) * resultsPerPage} to {jobPageNum * resultsPerPage}</h1>
-
-            <a href={`/jobs/1`}>
-                <button>First Page</button>
-            </a>
-            <button onClick={async () => {
-                navigate(`/jobs/${navigatePrevPage()}`);
-            }}>Previous Page</button>
-            <button onClick={() => {
-                navigate(`/jobs/${navigateNextPage()}`)
-            }}>Next Page</button>
-            <a href={`/jobs/${jobs.length / resultsPerPage}`}>
-                <button>Last Page</button>
-            </a>
-
+            <h1>Showing Results {(jobPageNum - 1) * resultsPerPage} - {jobPageNum * resultsPerPage}</h1>
+            <div className='jobListPageButtons'>
+                <a href={`/jobs/1`}>
+                    <button className='firstButton'>First Page</button>
+                </a>
+                <button className='prevButton' onClick={async () => {
+                    navigate(`/jobs/${navigatePrevPage()}`);
+                }}>{'<'}</button>
+                <button className='nextButton' onClick={() => {
+                    navigate(`/jobs/${navigateNextPage()}`)
+                }}>{'>'}</button>
+                <a href={`/jobs/${jobs.length / resultsPerPage}`}>
+                    <button className='lastButton'>Last Page</button>
+                </a>
+            </div>
             {jobs.slice((jobPageNum - 1) * resultsPerPage, jobPageNum * resultsPerPage).map((job) => (
                 <JobListItem key={job.refID} job={job} />
             ))}

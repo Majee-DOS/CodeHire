@@ -1,17 +1,22 @@
-.navBarBackground {
-  background-image: url('./public/polygon.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-color: var(--palette3);
+@import url('./ColorScheme.css');
+.appBackground {
+  background: linear-gradient(90deg, #ddddddff 20px, transparent 1%) center, linear-gradient(#ddddddff 20px, transparent 1%) center, #fa5018;
+  background-size: 22px 22px;
   height: 100%;
   width: 100%;
   position: fixed;
   top: 0;
   left: 0;
   z-index: -1;
+  overflow: scroll;
 }
 
-nav {
+/* .navBarNav {
+  position: absolute;
+  z-index: -1;
+} */
+
+.navBarNav {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -22,7 +27,8 @@ nav {
     left: 0;
     width: 100%;
     z-index: 999;
-    margin-bottom: 500px;
+    margin-bottom: 30px;
+
   }
   
   nav ul {

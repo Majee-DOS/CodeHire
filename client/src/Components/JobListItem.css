@@ -1,3 +1,20 @@
+@import url("./ColorScheme.css");
+.jobItemDiv {
+  background-color: var(--palette5);
+  border-radius: 15%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.starDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .job-list-item {
     display: flex;
     flex-direction: column;
@@ -27,5 +44,62 @@
   
   .job-list-item a:hover {
     text-decoration: underline;
+  }
+  
+  .starButton {
+    background-color: yellow;
+    color: black;
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+  
+  .starButton.clicked {
+    background-color: blue;
+    color: white;
+  }
+
+  #starButton {
+    /* background-color: yellow;
+    color: black; */
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* #starButton.clicked {
+    background-color: blue;
+    color: white;
+  } */
+
+  .grow {
+    transform: scale(1.2);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .jobItemParagraph {
+    font-size: 16px;
+    line-height: 24px;
+    margin: 8px 0;
+  }
+  
+  .jobItemLink {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #1E90FF;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 16px;
+  }
+  
+  .jobItemLink:hover {
+    background-color: #00BFFF;
+  }
+
+  .jobItemHeader {
+    padding-left: 20px;
   }
   

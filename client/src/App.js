@@ -24,13 +24,14 @@ const App = () => {
 
   useEffect(() => {
     refreshJobs();
+   
   }, []);
 
   //fix job/path to work with handlebars
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<NavBar />}>
+        <Route path="/" element={<NavBar setSearchResults={setSearchResults} />}>
           <Route index element={<Home />} />
           <Route path="jobs/:jobPageNum" element=
             {<UserContext.Provider value={searchResults}>

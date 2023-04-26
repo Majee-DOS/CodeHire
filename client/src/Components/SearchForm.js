@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { postJobs } from "../api.service";
 //add post functionality with search buttons
+import './SearchForm.css';
 
 function BooleanInputs({ values, onAdd, onChange, onDelete }) {
     return (
         <>
-            <button onClick={onAdd}>Add</button>
+            <button className="searchFormButton" onClick={onAdd}>Add</button>
             {values.map((data, i) => (
                 <div key={i}>
                     <input value={data} onChange={(e) => onChange(e, i)} />
@@ -135,28 +136,59 @@ function SearchForm() {
     }
 
     return (
-        <div>
-            <div>
-                <h1>AND Boolean</h1>
+        // <div className="searchFormDiv">
+        //     <div>
+        //         <h1>AND Boolean</h1>
+        //         <BooleanInputs
+        //             values={valAnd}
+        //             onAdd={handleAddAnd}
+        //             onChange={handleChangeAnd}
+        //             onDelete={handleDeleteAnd}
+        //         />
+        //         <button onClick={handleSearchAnd}>Search Only <strong>AND</strong> operations</button>
+        //     </div>
+        //     <div>
+        //         <h1>OR Boolean</h1>
+        //         <BooleanInputs
+        //             values={valOr}
+        //             onAdd={handleAddOr}
+        //             onChange={handleChangeOr}
+        //             onDelete={handleDeleteOr}
+        //         />
+        //         <button onClick={handleSearchOr}>Search Only <strong>OR</strong> operations</button>
+        //     </div>
+        //     <button onClick={handleSearchAll}>Search Both operations</button>
+        // </div>
+        <div className="searchFormContainer">
+            <div className="searchFormSection">
+                <h1 className="searchFormHeader">AND Boolean</h1>
                 <BooleanInputs
                     values={valAnd}
                     onAdd={handleAddAnd}
                     onChange={handleChangeAnd}
                     onDelete={handleDeleteAnd}
                 />
-                <button onClick={handleSearchAnd}>Search Only <strong>AND</strong> operations</button>
+                <button className="searchFormButton" onClick={handleSearchAnd}>
+                    Search Only AND Operations
+                </button>
             </div>
-            <div>
-                <h1>OR Boolean</h1>
+            <div className="searchFormSection">
+                <h1 className="searchFormHeader">OR Boolean</h1>
                 <BooleanInputs
                     values={valOr}
                     onAdd={handleAddOr}
                     onChange={handleChangeOr}
                     onDelete={handleDeleteOr}
                 />
-                <button onClick={handleSearchOr}>Search Only <strong>OR</strong> operations</button>
+                <button className="searchFormButton" onClick={handleSearchOr}>
+                    Search Only OR Operations
+                </button>
             </div>
-            <button onClick={handleSearchAll}>Search Both operations</button>
+            <div className="searchFormSection">
+                <button className="searchFormButton" onClick={handleSearchAll}>
+                    Search Both Operations
+                </button>
+            </div>
         </div>
     );
 }

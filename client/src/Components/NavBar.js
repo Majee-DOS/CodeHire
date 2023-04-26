@@ -2,21 +2,29 @@ import { Outlet, Link } from "react-router-dom";
 import './NavBar.css';
 import { postJobs } from '../api.service';
 //Don't forget to show results
-const NavBar = () => {
+const NavBar = ({ setSearchResults }) => {
 
-  const handleSearch = (event) => {
+  const handleSearch = async (event) => {
     console.log("Quick Search: ", event.target.elements.search.value);
     const newQuickSearch = {
       searchString: event.target.elements.search.value
     }
-    postJobs(newQuickSearch);
-    event.preventDefault();
+    const temp = await postJobs(newQuickSearch);
+    console.log(temp.length)
+    setSearchResults([...temp]);
+
+    //event.preventDefault();
   }
   return (
-    <>
-      <body className="navBarBackground">
-        <nav>
+      <div className="appBackground">
+        <nav className="navBarNav">
           <ul>
+            <li>
+            <form onSubmit={handleSearch}>
+              <input type="text" name="search" placeholder="quick search..." />
+              <button type="submit">Search</button>
+            </form>
+            </li>
             <li>
               <Link to="/">Home</Link>
             </li>
@@ -24,24 +32,20 @@ const NavBar = () => {
               <Link to="/jobs/1">Job Results</Link>
             </li>
             <li>
-              <Link to="/login">Log In</Link>
-            </li>
-            <li>
               <Link to="/loading">Loading Screen</Link>
             </li>
             <li>
-              <Link to="/search">Search</Link>
+              <Link to="/search">Advanced Search</Link>
             </li>
-            <form onSubmit={handleSearch}>
-              <input type="text" name="search" placeholder="quick search..." />
-              <button type="submit">Search</button>
-            </form>
+            <li>
+              <Link to="/login">Log In</Link>
+            </li>
           </ul>
         </nav>
-      </body>
 
-      <Outlet />
-    </>
+        <Outlet />
+      </div>
+
   )
 };
 

@@ -1,36 +1,75 @@
-.job-list {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .job-list-item {
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .job-list-item h2 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 24px;
-  }
-  
-  .job-list-item p {
-    margin: 0;
-    font-size: 16px;
-  }
-  
-  .job-list-item a {
-    color: #0077cc;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .job-list-item a:hover {
-    text-decoration: underline;
-  }
-  
+@import url("./ColorScheme.css");
+
+.jobListDiv {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nextButton,
+.prevButton {
+  background: var(--palette6);
+  background-image: -webkit-linear-gradient(top, var(--palette6), var(--palette6));
+  background-image: -moz-linear-gradient(top, var(--palette6), var(--palette6));
+  background-image: -ms-linear-gradient(top, var(--palette6), var(--palette6));
+  background-image: -o-linear-gradient(top, var(--palette6), var(--palette6));
+  background-image: linear-gradient(to bottom, var(--palette6), var(--palette6));
+  -webkit-border-radius: 56;
+  -moz-border-radius: 56;
+  border-radius: 56px;
+  text-shadow: 3px 1px 4px #000000;
+  -webkit-box-shadow: 0px 1px 5px #666666;
+  -moz-box-shadow: 0px 1px 5px #666666;
+  box-shadow: 0px 1px 5px #666666;
+  font-family: Arial;
+  color: #ddddddff;
+  font-size: 50px;
+  padding: 0px 15px 0px 15px;
+  text-decoration: none;
+}
+
+.nextButton:hover,
+.prevButton:hover {
+  background: var(--palette5);
+  background-image: -webkit-linear-gradient(top, var(--palette5), var(--palette3));
+  background-image: -moz-linear-gradient(top, var(--palette5), var(--palette3));
+  background-image: -ms-linear-gradient(top, var(--palette5), var(--palette3));
+  background-image: -o-linear-gradient(top, var(--palette5), var(--palette3));
+  background-image: linear-gradient(to bottom, var(--palette5), var(--palette3));
+  text-decoration: none;
+}
+
+.firstButton,
+.lastButton {
+  background: var(--palette6);
+  background-image: -webkit-linear-gradient(top, var(--palette6), var(--palette6));
+  background-image: -moz-linear-gradient(top, var(--palette6), var(--palette6));
+  background-image: -ms-linear-gradient(top, var(--palette6), var(--palette6));
+  background-image: -o-linear-gradient(top, var(--palette6), var(--palette6));
+  background-image: linear-gradient(to bottom, var(--palette6), var(--palette6));
+  -webkit-border-radius: 26;
+  -moz-border-radius: 26;
+  border-radius: 26px;
+  text-shadow: 3px 1px 4px #000000;
+  -webkit-box-shadow: 0px 1px 5px #666666;
+  -moz-box-shadow: 0px 1px 5px #666666;
+  box-shadow: 0px 1px 5px #666666;
+  font-family: Arial;
+  color: #ddddddff;
+  font-size: 40px;
+  padding: 3px 15px 3px 15px;
+  border: solid #000000 2px;
+  text-decoration: none;
+}
+
+.firstButton:hover,
+.lastButton:hover {
+  background: var(--palette5);
+  background-image: -webkit-linear-gradient(top, var(--palette5), var(--palette3));
+  background-image: -moz-linear-gradient(top, var(--palette5), var(--palette3));
+  background-image: -ms-linear-gradient(top, var(--palette5), var(--palette3));
+  background-image: -o-linear-gradient(top, var(--palette5), var(--palette3));
+  background-image: linear-gradient(to bottom, var(--palette5), var(--palette3));
+  text-decoration: none;
+}
